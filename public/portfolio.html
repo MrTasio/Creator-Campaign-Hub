@@ -461,6 +461,15 @@
                 database design, serverless functions, and real-time analytics. The system is built with scalability and security 
                 in mind, featuring role-based access control, automated metric calculations, and a robust API for external integrations.
             </p>
+            <div class="bg-muted/50 rounded-lg border border-border p-4 mt-6" style="background: var(--bg-card); padding: 24px; border-radius: 12px; border: 1px solid var(--border);">
+                <h3 style="font-size: 1.25rem; margin-bottom: 12px; color: var(--text);">Development Journey</h3>
+                <p style="font-size: 1rem; line-height: 1.8; color: var(--text-light); margin-bottom: 0;">
+                    This application was initially prototyped using <strong>Lovable</strong> to rapidly establish the core foundation and UI structure. 
+                    However, the project has been significantly enhanced with custom modifications, additional features, and is now 
+                    <strong>completely independent</strong> from the Lovable platform. The application is self-hosted on <strong>Vercel</strong> with a 
+                    dedicated <strong>Supabase</strong> backend, giving full control over deployment, scaling, and infrastructure management.
+                </p>
+            </div>
         </div>
     </section>
 
@@ -876,6 +885,18 @@ Response:
         <div class="container">
             <h2>Deployment & Build Process</h2>
             
+            <h3>Independent Infrastructure</h3>
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 20px;">
+                The application is fully self-hosted and independent from any third-party platform dependencies. While the initial 
+                prototype was created using Lovable for rapid development, the production application runs entirely on our own infrastructure:
+            </p>
+            <ul style="margin-bottom: 30px;">
+                <li><strong>Frontend Hosting:</strong> Deployed on Vercel with custom domain configuration</li>
+                <li><strong>Backend & Database:</strong> Dedicated Supabase project with full control over database schema, functions, and edge functions</li>
+                <li><strong>No Platform Lock-in:</strong> Complete independence from Lovable or any other development platform</li>
+                <li><strong>Full Ownership:</strong> All code, data, and infrastructure are independently managed</li>
+            </ul>
+            
             <h3>Build Pipeline</h3>
             <ol>
                 <li><strong>Pre-build:</strong> Generate tracker.js from template with environment variables</li>
@@ -886,7 +907,7 @@ Response:
             <h3>Environment Configuration</h3>
             <p>The application uses environment variables for:</p>
             <ul>
-                <li>Supabase URL and API keys</li>
+                <li>Supabase URL and API keys (from our dedicated Supabase project)</li>
                 <li>Tracker script configuration</li>
                 <li>API endpoint URLs</li>
             </ul>
@@ -898,6 +919,7 @@ Response:
                 <li>CDN distribution via Vercel</li>
                 <li>Automatic HTTPS</li>
                 <li>Edge function deployment for low-latency API responses</li>
+                <li>Independent Supabase backend with custom database functions and edge functions</li>
             </ul>
         </div>
     </section>
