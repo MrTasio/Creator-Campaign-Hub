@@ -1,0 +1,4 @@
+# Supabase Project ID
+# Note: This is a public identifier and safe to commit to version control.
+# Project IDs are not sensitive credentials.
+project_id = "usmvfkxaxlzclatjjnfc"
