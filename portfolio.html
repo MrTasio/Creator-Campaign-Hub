@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Campaign Hub - Project Portfolio</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --text: #f8fafc;
+            --text-light: #cbd5e1;
+            --text-muted: #94a3b8;
+            --bg: #0a0e27;
+            --bg-alt: #0f172a;
+            --bg-card: #1e293b;
+            --border: #1e293b;
+            --border-light: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0a0e27 0%, #1e293b 50%, #0f172a 100%);
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        header p:last-child {
+            font-size: 1rem;
+            margin-top: 15px;
+            color: var(--text-muted);
+        }
+
+        header a {
+            transition: all 0.2s;
+        }
+
+        header a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-alt);
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            color: var(--text);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin: 50px 0 25px;
+            color: var(--text);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            margin: 20px 0 12px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: var(--text);
+            font-size: 1.3rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-badge {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary-light);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.2s;
+        }
+
+        .tech-badge:hover {
+            background: rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .code-block {
+            background: #0a0e1a;
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            border: 1px solid var(--border);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-block code {
+            color: #e2e8f0;
+        }
+
+        .highlight {
+            background: rgba(245, 158, 11, 0.15);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #fbbf24;
+            font-weight: 500;
+        }
+
+        .architecture-diagram {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .flow-item {
+            background: var(--bg-alt);
+            padding: 24px;
+            margin: 16px 0;
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .flow-item:hover {
+            border-left-color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-light);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-box .number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-box .label {
+            color: var(--text-light);
+            margin-top: 12px;
+            font-size: 0.95rem;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+
+        li::marker {
+            color: var(--primary-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 10px 10px 10px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+        }
+
+        footer {
+            background: var(--bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        th {
+            background: var(--bg-alt);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+        }
+
+        tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 0 50px;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1.2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 50px 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-card {
+                padding: 24px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+    <body style="background: var(--bg); color: var(--text);">
+    <header>
+        <div class="container">
+            <h1>Creator Campaign Hub</h1>
+            <p>Comprehensive Campaign Tracking & Analytics Platform</p>
+            <p style="margin-top: 10px; font-size: 1rem; opacity: 0.9;">
+                Live URL: <a href="https://creator-campaign-hub.vercel.app" style="color: var(--primary-light); text-decoration: none; border-bottom: 1px solid rgba(129, 140, 248, 0.3); transition: all 0.2s; display: inline-block;">https://creator-campaign-hub.vercel.app</a>
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2>Project Overview</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                <strong>Creator Campaign Hub</strong> is a full-stack web application designed to help content creators and marketers 
+                track, manage, and analyze their marketing campaigns. The platform provides real-time tracking of views and clicks, 
+                comprehensive analytics dashboards, and an embeddable tracking system that can be integrated into any website or 
+                application.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                This project demonstrates expertise in modern web development, including React frontend architecture, PostgreSQL 
+                database design, serverless functions, and real-time analytics. The system is built with scalability and security 
+                in mind, featuring role-based access control, automated metric calculations, and a robust API for external integrations.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 Campaign Management</h4>
+                    <p>Create, edit, and manage multiple marketing campaigns with custom CPM (Cost Per Mille) and CPC (Cost Per Click) rates. Track campaigns through their lifecycle from draft to active to completed status.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>👥 Creator Management</h4>
+                    <p>Organize campaigns by creators, allowing you to track performance across different content creators and manage relationships effectively.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📈 Real-Time Analytics</h4>
+                    <p>View comprehensive dashboards showing total views, clicks, CTR (Click-Through Rate), and estimated payouts. All metrics are calculated in real-time as events are tracked.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📉 Event Visualization</h4>
+                    <p>Interactive charts displaying view and click events over time, helping you identify trends and optimize campaign performance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🔗 Embeddable Tracker</h4>
+                    <p>Lightweight JavaScript tracking script that can be embedded in any website. Automatically tracks views from URL parameters and clicks on links containing campaign IDs.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🔌 Public API</h4>
+                    <p>RESTful API endpoints for tracking views and clicks programmatically. Supports multiple integration methods including cURL, JavaScript Fetch, and Python Requests.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✏️ Manual Event Entry</h4>
+                    <p>Add view and click events manually through the dashboard interface, useful for testing or recording offline events.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🔐 Secure Authentication</h4>
+                    <p>User authentication and authorization system with role-based access control. Each user can only access their own campaigns and data.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>💰 Automatic Payout Calculation</h4>
+                    <p>Automatically calculates estimated payouts based on views (CPM) and clicks (CPC) using the formula: <span class="highlight">(Views ÷ 1000 × CPM) + (Clicks × CPC)</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Technical Stack</h2>
+            <h3>Frontend</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">React 18.3</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Vite</span>
+                <span class="tech-badge">React Router</span>
+                <span class="tech-badge">TanStack Query</span>
+                <span class="tech-badge">shadcn/ui</span>
+                <span class="tech-badge">Tailwind CSS</span>
+                <span class="tech-badge">Recharts</span>
+                <span class="tech-badge">React Hook Form</span>
+                <span class="tech-badge">Zod</span>
+            </div>
+
+            <h3>Backend & Database</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">Supabase</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Deno Edge Functions</span>
+                <span class="tech-badge">Row Level Security (RLS)</span>
+                <span class="tech-badge">PostgreSQL Functions</span>
+                <span class="tech-badge">Database Triggers</span>
+            </div>
+
+            <h3>Deployment & Infrastructure</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">Vercel</span>
+                <span class="tech-badge">Supabase Cloud</span>
+                <span class="tech-badge">Environment Variables</span>
+                <span class="tech-badge">Build-time Script Generation</span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Architecture & Implementation</h2>
+            
+            <h3>Application Structure</h3>
+            <div class="architecture-diagram">
+                <div class="flow-item">
+                    <strong>Frontend (React SPA)</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Client-side routing with React Router</li>
+                        <li>State management with TanStack Query for server state</li>
+                        <li>Form handling with React Hook Form and Zod validation</li>
+                        <li>UI components built with shadcn/ui and Tailwind CSS</li>
+                    </ul>
+                </div>
+
+                <div class="flow-item">
+                    <strong>Authentication Layer</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Supabase Auth for user authentication</li>
+                        <li>Automatic profile creation on signup</li>
+                        <li>Role-based access control (admin/user roles)</li>
+                        <li>Protected routes with authentication checks</li>
+                    </ul>
+                </div>
+
+                <div class="flow-item">
+                    <strong>Database Layer (PostgreSQL)</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Row Level Security (RLS) policies for data isolation</li>
+                        <li>Database functions for metric calculations</li>
+                        <li>Triggers for automatic timestamp updates</li>
+                        <li>Public insert policy for tracking API</li>
+                    </ul>
+                </div>
+
+                <div class="flow-item">
+                    <strong>API Layer (Supabase Edge Functions)</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>track-view: Handles view event tracking</li>
+                        <li>track-click: Handles click event tracking</li>
+                        <li>CORS-enabled for cross-origin requests</li>
+                        <li>Automatic metric updates after event insertion</li>
+                    </ul>
+                </div>
+
+                <div class="flow-item">
+                    <strong>Tracking System</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Embeddable JavaScript tracker (tracker.js)</li>
+                        <li>Auto-tracking from URL parameters</li>
+                        <li>Automatic click tracking on links</li>
+                        <li>Manual JavaScript API for programmatic tracking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Data Flow</h3>
+            <ol>
+                <li><strong>Event Tracking:</strong> External website includes tracker.js script or calls API directly</li>
+                <li><strong>API Processing:</strong> Edge function receives event, validates campaign_id, and inserts into database</li>
+                <li><strong>Metric Calculation:</strong> Database function automatically recalculates views, clicks, CTR, and payout</li>
+                <li><strong>Real-time Updates:</strong> Frontend queries updated campaign data and displays in dashboard</li>
+                <li><strong>Visualization:</strong> Charts and tables update to reflect latest metrics</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Database Schema</h2>
+            
+            <h3>Core Tables</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Purpose</th>
+                            <th>Key Fields</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>profiles</strong></td>
+                            <td>User profile information</td>
+                            <td>id, email, full_name, created_at, updated_at</td>
+                        </tr>
+                        <tr>
+                            <td><strong>user_roles</strong></td>
+                            <td>Role-based access control</td>
+                            <td>user_id, role (admin/user)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>creators</strong></td>
+                            <td>Content creator information</td>
+                            <td>id, user_id, name, email, created_at, updated_at</td>
+                        </tr>
+                        <tr>
+                            <td><strong>campaigns</strong></td>
+                            <td>Campaign data and metrics</td>
+                            <td>id, user_id, creator_id, name, status, cpm_rate, cpc_rate, total_views, total_clicks, ctr, estimated_payout</td>
+                        </tr>
+                        <tr>
+                            <td><strong>campaign_events</strong></td>
+                            <td>Individual tracking events</td>
+                            <td>id, campaign_id, event_type (view/click), source, created_at</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Database Functions</h3>
+            <div class="code-block">
+<code><strong>update_campaign_metrics(campaign_uuid UUID)</strong>
+  - Automatically recalculates campaign metrics
+  - Counts views and clicks from campaign_events
+  - Calculates CTR: (clicks / views) × 100
+  - Calculates payout: (views/1000 × CPM) + (clicks × CPC)
+  - Updates campaign record with new values
+
+<strong>handle_new_user()</strong>
+  - Trigger function for new user signups
+  - Creates profile record
+  - Assigns default 'user' role
+
+<strong>update_updated_at_column()</strong>
+  - Trigger function for automatic timestamp updates
+  - Maintains updated_at field on profile, creator, and campaign tables</code>
+            </div>
+
+            <h3>Security: Row Level Security (RLS)</h3>
+            <ul>
+                <li><strong>Data Isolation:</strong> Users can only view/modify their own campaigns, creators, and events</li>
+                <li><strong>Public Tracking:</strong> Anyone can insert events (for tracking API), but only campaign owners can view them</li>
+                <li><strong>Role-based Access:</strong> Admin roles can be assigned for elevated permissions (extensible)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Tracking System</h2>
+            
+            <h3>Embeddable Tracker Script</h3>
+            <p>The tracker.js script is generated at build time with environment variables injected. It provides:</p>
+            <ul>
+                <li><strong>Automatic View Tracking:</strong> Detects campaignId in URL parameters and tracks views on page load</li>
+                <li><strong>Automatic Click Tracking:</strong> Monitors all link clicks and tracks clicks for links containing campaignId</li>
+                <li><strong>JavaScript API:</strong> <code>window.CampaignTracker.trackView()</code> and <code>window.CampaignTracker.trackClick()</code> for manual tracking</li>
+                <li><strong>Error Handling:</strong> Graceful error handling that doesn't interrupt user experience</li>
+            </ul>
+
+            <div class="code-block">
+<code>// Usage Example
+&lt;script src="https://creator-campaign-hub.vercel.app/tracker.js"&gt;&lt;/script&gt;
+
+// Automatic tracking from URL:
+// https://example.com/page?campaignId=abc123
+
+// Manual tracking:
+window.CampaignTracker.trackView('abc123');
+window.CampaignTracker.trackClick('abc123');</code>
+            </div>
+
+            <h3>REST API Endpoints</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>POST /functions/v1/track-view</h4>
+                    <p>Track a view event for a campaign</p>
+                    <div class="code-block" style="margin-top: 15px; font-size: 0.8rem;">
+<code>{
+  "campaign_id": "uuid-here"
+}</code>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h4>POST /functions/v1/track-click</h4>
+                    <p>Track a click event for a campaign</p>
+                    <div class="code-block" style="margin-top: 15px; font-size: 0.8rem;">
+<code>{
+  "campaign_id": "uuid-here"
+}</code>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Integration Examples</h3>
+            <p>The platform provides ready-to-use code examples for:</p>
+            <ul>
+                <li>cURL commands</li>
+                <li>JavaScript Fetch API</li>
+                <li>Python Requests library</li>
+            </ul>
+            <p>All examples include proper authentication headers and can be copied directly from the dashboard.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Key Components</h2>
+            
+            <h3>Dashboard Components</h3>
+            <ul>
+                <li><strong>CampaignsTable:</strong> Displays all campaigns with sortable columns, status badges, and quick navigation</li>
+                <li><strong>StatCard:</strong> Reusable component for displaying metrics (views, clicks, CTR, payout)</li>
+                <li><strong>StatusBadge:</strong> Visual status indicators for campaign states (draft/active/completed)</li>
+                <li><strong>CreateCampaignDialog:</strong> Modal form for creating new campaigns with validation</li>
+            </ul>
+
+            <h3>Campaign Details Components</h3>
+            <ul>
+                <li><strong>EventsChart:</strong> Interactive line chart showing view and click trends over time using Recharts</li>
+                <li><strong>ManualEventForm:</strong> Form for manually adding view/click events with date/time selection</li>
+                <li><strong>TrackingInfo:</strong> Comprehensive tracking instructions with embeddable script, API examples, and usage documentation</li>
+            </ul>
+
+            <h3>Custom Hooks</h3>
+            <ul>
+                <li><strong>useAuth:</strong> Manages authentication state and user session</li>
+                <li><strong>useCampaigns:</strong> Handles campaign data fetching, mutations, and caching with TanStack Query</li>
+                <li><strong>useCampaign:</strong> Fetches individual campaign data with automatic refetching</li>
+                <li><strong>useCampaignEvents:</strong> Retrieves event history for a specific campaign</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Security Features</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔒 Row Level Security</h4>
+                    <p>PostgreSQL RLS policies ensure users can only access their own data. Each table has carefully crafted policies that check user ownership.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🔑 Authentication</h4>
+                    <p>Supabase Auth handles secure user authentication with email/password. JWT tokens are used for API authentication.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🛡️ API Security</h4>
+                    <p>Edge functions validate campaign IDs and use service role keys for database operations. CORS headers are properly configured.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>👤 Role-Based Access</h4>
+                    <p>Extensible role system (admin/user) allows for future permission management. Currently, all users have equal access to their own data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Deployment & Build Process</h2>
+            
+            <h3>Build Pipeline</h3>
+            <ol>
+                <li><strong>Pre-build:</strong> Generate tracker.js from template with environment variables</li>
+                <li><strong>Build:</strong> Vite bundles React application for production</li>
+                <li><strong>Deploy:</strong> Vercel deploys static assets and edge functions</li>
+            </ol>
+
+            <h3>Environment Configuration</h3>
+            <p>The application uses environment variables for:</p>
+            <ul>
+                <li>Supabase URL and API keys</li>
+                <li>Tracker script configuration</li>
+                <li>API endpoint URLs</li>
+            </ul>
+
+            <h3>Production Features</h3>
+            <ul>
+                <li>Optimized bundle sizes with Vite</li>
+                <li>Code splitting for faster initial load</li>
+                <li>CDN distribution via Vercel</li>
+                <li>Automatic HTTPS</li>
+                <li>Edge function deployment for low-latency API responses</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Project Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="number">10+</div>
+                    <div class="label">React Components</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">5</div>
+                    <div class="label">Database Tables</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">3</div>
+                    <div class="label">Database Functions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">2</div>
+                    <div class="label">API Endpoints</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">15+</div>
+                    <div class="label">RLS Policies</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">100%</div>
+                    <div class="label">TypeScript Coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>What Makes This Project Special</h2>
+            
+            <h3>1. Real-World Application</h3>
+            <p>This isn't just a demo—it's a fully functional platform that could be used by content creators and marketers today. The tracking system can be integrated into any website, and the analytics provide actionable insights.</p>
+
+            <h3>2. Scalable Architecture</h3>
+            <p>The use of PostgreSQL functions for metric calculations means the system can handle millions of events efficiently. Row Level Security ensures data isolation at the database level, not just the application level.</p>
+
+            <h3>3. Developer Experience</h3>
+            <p>TypeScript throughout ensures type safety. TanStack Query provides excellent caching and state management. The component library (shadcn/ui) ensures consistent, accessible UI components.</p>
+
+            <h3>4. Production-Ready Features</h3>
+            <p>Error handling, loading states, form validation, responsive design, and comprehensive documentation are all built in. The application follows best practices for security, performance, and user experience.</p>
+
+            <h3>5. Extensibility</h3>
+            <p>The architecture supports easy extension: new event types, additional metrics, email notifications, export functionality, and more can be added without major refactoring.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Technical Highlights</h2>
+            
+            <h3>Advanced PostgreSQL Features</h3>
+            <ul>
+                <li>Custom enums for type safety (campaign_status, event_type, app_role)</li>
+                <li>Database triggers for automatic timestamp management</li>
+                <li>Stored procedures for complex metric calculations</li>
+                <li>Row Level Security with security definer functions</li>
+            </ul>
+
+            <h3>Modern React Patterns</h3>
+            <ul>
+                <li>Custom hooks for reusable logic</li>
+                <li>React Query for server state management</li>
+                <li>Form validation with Zod schemas</li>
+                <li>Component composition with shadcn/ui</li>
+                <li>Type-safe routing with React Router</li>
+            </ul>
+
+            <h3>Performance Optimizations</h3>
+            <ul>
+                <li>Code splitting with React.lazy (ready for implementation)</li>
+                <li>Query caching to reduce API calls</li>
+                <li>Optimistic updates for better UX</li>
+                <li>Efficient re-renders with proper React patterns</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p style="color: white; margin-bottom: 10px;">
+                <strong>Creator Campaign Hub</strong> - A comprehensive campaign tracking and analytics platform
+            </p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">
+                Built with React, TypeScript, Supabase, and PostgreSQL | Deployed on Vercel
+            </p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 10px;">
+                <a href="https://creator-campaign-hub.vercel.app" style="color: white; text-decoration: underline;">View Live Application</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
