@@ -97,7 +97,7 @@ print(response.json())`;
             <div>
               <Label className="text-sm font-medium mb-2">Embeddable Tracking Script</Label>
               <p className="text-xs text-muted-foreground mb-4">
-                Include this script in other projects to automatically track views and clicks. The script reads campaignId from URL parameters.
+                Include this script in other projects to automatically track views and clicks. The script reads campaignId from URL parameters. The tracker script is hosted at <strong>https://creator-campaign-hub.vercel.app/tracker.js</strong>
               </p>
             </div>
 
@@ -109,7 +109,7 @@ print(response.json())`;
                   size="sm"
                   className="h-6 px-2"
                   onClick={() => {
-                    const scriptTag = `<script src="/tracker.js"></script>`;
+                    const scriptTag = `<script src="https://creator-campaign-hub.vercel.app/tracker.js"></script>`;
                     copyToClipboard(scriptTag, 'code', 'script-tag');
                   }}
                 >
@@ -121,7 +121,7 @@ print(response.json())`;
                 </Button>
               </div>
               <pre className="p-3 bg-muted rounded-md text-xs font-mono overflow-x-auto">
-                <code>{`<script src="/tracker.js"></script>`}</code>
+                <code>{`<script src="https://creator-campaign-hub.vercel.app/tracker.js"></script>`}</code>
               </pre>
             </div>
 
@@ -133,7 +133,7 @@ print(response.json())`;
                 </p>
                 <pre className="p-3 bg-muted rounded-md text-xs font-mono overflow-x-auto">
                   <code>{`<head>
-  <script src="/tracker.js"></script>
+  <script src="https://creator-campaign-hub.vercel.app/tracker.js"></script>
 </head>`}</code>
                 </pre>
                 
