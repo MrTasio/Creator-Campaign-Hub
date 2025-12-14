@@ -24,6 +24,7 @@ import { Plus } from 'lucide-react';
 
 const campaignSchema = z.object({
   name: z.string().min(1, 'Campaign name is required').max(100),
+  target_link: z.string().min(1, 'Target link is required').url('Invalid URL'),
   creator_id: z.string().min(1, 'Creator is required'),
   status: z.enum(['draft', 'active', 'completed']),
   cpm_rate: z.coerce.number().min(0),
@@ -45,6 +46,7 @@ export function CreateCampaignDialog() {
     resolver: zodResolver(campaignSchema),
     defaultValues: {
       name: '',
+      target_link: '',
       creator_id: '',
       status: 'draft',
       cpm_rate: 5,
@@ -55,6 +57,7 @@ export function CreateCampaignDialog() {
   const onSubmit = async (data: CampaignFormData) => {
     await createCampaign.mutateAsync({
       name: data.name,
+      target_link: data.target_link,
       creator_id: data.creator_id,
       status: data.status,
       cpm_rate: data.cpm_rate,
@@ -86,6 +89,18 @@ export function CreateCampaignDialog() {
           <DialogTitle>Create Campaign</DialogTitle>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
+          
+        <div className="space-y-2">
+            <Label htmlFor="name">Target Link</Label>
+            <Input
+              id="name"
+              placeholder="https://www.example.com"
+              {...form.register('target_link')}
+            />
+            {form.formState.errors.target_link && (
+              <p className="text-sm text-destructive">{form.formState.errors.target_link.message}</p>
+            )}
+          </div>
           <div className="space-y-2">
             <Label htmlFor="name">Campaign Name</Label>
             <Input

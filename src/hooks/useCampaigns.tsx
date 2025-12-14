@@ -22,6 +22,7 @@ export interface Campaign {
   created_at: string;
   creator_id: string;
   creators: Creator;
+  target_link: string;
 }
 
 export interface CampaignEvent {
@@ -144,6 +145,7 @@ export function useCreateCampaign() {
   return useMutation({
     mutationFn: async (campaign: {
       name: string;
+      target_link: string;
       creator_id: string;
       status?: 'draft' | 'active' | 'completed';
       cpm_rate?: number;
@@ -175,6 +177,7 @@ export function useUpdateCampaign() {
     mutationFn: async ({ id, ...updates }: {
       id: string;
       name?: string;
+      target_link?: string;
       status?: 'draft' | 'active' | 'completed';
       cpm_rate?: number;
       cpc_rate?: number;

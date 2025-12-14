@@ -86,9 +86,11 @@ export default function CampaignDetails() {
               <div className="flex items-center gap-3">
                 <h1 className="text-2xl font-semibold tracking-tight">{campaign.name}</h1>
                 <StatusBadge status={campaign.status} />
-              </div>
-              <p className="text-muted-foreground mt-1">
+              </div><p className="text-muted-foreground mt-1">
                 Creator: {campaign.creators?.name || '—'}
+              </p>
+              <p className="text-muted-foreground mt-1">
+                Target Link: {campaign.target_link || '—'}
               </p>
             </div>
             
