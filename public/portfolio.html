@@ -490,12 +490,22 @@
 
                 <div class="feature-card">
                     <h4>🔗 Embeddable Tracker</h4>
-                    <p>Lightweight JavaScript tracking script that can be embedded in any website. Automatically tracks views from URL parameters and clicks on links containing campaign IDs.</p>
+                    <p>Lightweight JavaScript tracking script that can be embedded in any website. Automatically tracks views from URL parameters and clicks on links containing campaign IDs. Includes target link validation to restrict tracking to specific URLs.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🎯 Target Link Restrictions</h4>
+                    <p>Configure campaigns with target links to restrict tracking to specific URLs. The tracker automatically validates the current page URL against the target link before tracking events, ensuring accurate attribution.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>✅ Script Verification</h4>
+                    <p>Built-in link checker that verifies if the tracker script is properly installed on external websites. Enter any URL to instantly check if the script tag is present and correctly configured.</p>
                 </div>
 
                 <div class="feature-card">
                     <h4>🔌 Public API</h4>
-                    <p>RESTful API endpoints for tracking views and clicks programmatically. Supports multiple integration methods including cURL, JavaScript Fetch, and Python Requests.</p>
+                    <p>RESTful API endpoints for tracking views and clicks programmatically. Supports multiple integration methods including cURL, JavaScript Fetch, and Python Requests. Includes campaign info endpoint for target link validation.</p>
                 </div>
 
                 <div class="feature-card">
@@ -511,6 +521,11 @@
                 <div class="feature-card">
                     <h4>💰 Automatic Payout Calculation</h4>
                     <p>Automatically calculates estimated payouts based on views (CPM) and clicks (CPC) using the formula: <span class="highlight">(Views ÷ 1000 × CPM) + (Clicks × CPC)</span></p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📋 Shareable Campaign Links</h4>
+                    <p>Generate ready-to-share campaign links with campaignId parameters pre-configured. One-click copy functionality makes it easy to share tracking links with creators and partners.</p>
                 </div>
             </div>
         </div>
@@ -594,6 +609,8 @@
                     <ul style="margin-top: 10px;">
                         <li>track-view: Handles view event tracking</li>
                         <li>track-click: Handles click event tracking</li>
+                        <li>get-campaign-info: Returns campaign target_link and status for validation</li>
+                        <li>check-script: Verifies script installation on external URLs</li>
                         <li>CORS-enabled for cross-origin requests</li>
                         <li>Automatic metric updates after event insertion</li>
                     </ul>
@@ -604,8 +621,11 @@
                     <ul style="margin-top: 10px;">
                         <li>Embeddable JavaScript tracker (tracker.js)</li>
                         <li>Auto-tracking from URL parameters</li>
+                        <li>Target link validation before tracking</li>
+                        <li>Campaign status verification</li>
                         <li>Automatic click tracking on links</li>
                         <li>Manual JavaScript API for programmatic tracking</li>
+                        <li>Script verification tool for external sites</li>
                     </ul>
                 </div>
             </div>
@@ -613,6 +633,8 @@
             <h3>Data Flow</h3>
             <ol>
                 <li><strong>Event Tracking:</strong> External website includes tracker.js script or calls API directly</li>
+                <li><strong>Target Link Validation:</strong> Tracker fetches campaign info and validates current URL against target_link (if set)</li>
+                <li><strong>Campaign Status Check:</strong> Verifies campaign is active before proceeding with tracking</li>
                 <li><strong>API Processing:</strong> Edge function receives event, validates campaign_id, and inserts into database</li>
                 <li><strong>Metric Calculation:</strong> Database function automatically recalculates views, clicks, CTR, and payout</li>
                 <li><strong>Real-time Updates:</strong> Frontend queries updated campaign data and displays in dashboard</li>
@@ -654,7 +676,7 @@
                         <tr>
                             <td><strong>campaigns</strong></td>
                             <td>Campaign data and metrics</td>
-                            <td>id, user_id, creator_id, name, status, cpm_rate, cpc_rate, total_views, total_clicks, ctr, estimated_payout</td>
+                            <td>id, user_id, creator_id, name, status, target_link, cpm_rate, cpc_rate, total_views, total_clicks, ctr, estimated_payout</td>
                         </tr>
                         <tr>
                             <td><strong>campaign_events</strong></td>
@@ -684,6 +706,13 @@
   - Maintains updated_at field on profile, creator, and campaign tables</code>
             </div>
 
+            <h3>Recent Enhancements</h3>
+            <ul>
+                <li><strong>Target Link Field:</strong> Added target_link column to campaigns table for URL-based tracking restrictions</li>
+                <li><strong>Campaign Info API:</strong> Public endpoint to retrieve campaign target_link and status for client-side validation</li>
+                <li><strong>Script Verification:</strong> Backend service to check if tracker script is installed on external websites</li>
+            </ul>
+
             <h3>Security: Row Level Security (RLS)</h3>
             <ul>
                 <li><strong>Data Isolation:</strong> Users can only view/modify their own campaigns, creators, and events</li>
@@ -702,6 +731,8 @@
             <ul>
                 <li><strong>Automatic View Tracking:</strong> Detects campaignId in URL parameters and tracks views on page load</li>
                 <li><strong>Automatic Click Tracking:</strong> Monitors all link clicks and tracks clicks for links containing campaignId</li>
+                <li><strong>Target Link Validation:</strong> Automatically fetches campaign info and validates current URL against target_link before tracking</li>
+                <li><strong>Campaign Status Check:</strong> Only tracks events for active campaigns, skipping draft or completed campaigns</li>
                 <li><strong>JavaScript API:</strong> <code>window.CampaignTracker.trackView()</code> and <code>window.CampaignTracker.trackClick()</code> for manual tracking</li>
                 <li><strong>Error Handling:</strong> Graceful error handling that doesn't interrupt user experience</li>
             </ul>
@@ -739,6 +770,38 @@ window.CampaignTracker.trackClick('abc123');</code>
 }</code>
                     </div>
                 </div>
+
+                <div class="feature-card">
+                    <h4>GET /functions/v1/get-campaign-info</h4>
+                    <p>Retrieve campaign information including target_link and status for validation</p>
+                    <div class="code-block" style="margin-top: 15px; font-size: 0.8rem;">
+<code>?campaign_id=uuid-here
+
+Response:
+{
+  "campaign_id": "uuid",
+  "target_link": "https://...",
+  "status": "active"
+}</code>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h4>POST /functions/v1/check-script</h4>
+                    <p>Verify if tracker script is installed on a given URL</p>
+                    <div class="code-block" style="margin-top: 15px; font-size: 0.8rem;">
+<code>{
+  "url": "https://example.com"
+}
+
+Response:
+{
+  "hasTrackerScript": true,
+  "hasCampaignId": true,
+  "scriptTags": [...]
+}</code>
+                    </div>
+                </div>
             </div>
 
             <h3>Integration Examples</h3>
@@ -768,7 +831,7 @@ window.CampaignTracker.trackClick('abc123');</code>
             <ul>
                 <li><strong>EventsChart:</strong> Interactive line chart showing view and click trends over time using Recharts</li>
                 <li><strong>ManualEventForm:</strong> Form for manually adding view/click events with date/time selection</li>
-                <li><strong>TrackingInfo:</strong> Comprehensive tracking instructions with embeddable script, API examples, and usage documentation</li>
+                <li><strong>TrackingInfo:</strong> Comprehensive tracking instructions with embeddable script, API examples, campaign link sharing, script verification tool, and usage documentation</li>
             </ul>
 
             <h3>Custom Hooks</h3>
@@ -856,7 +919,7 @@ window.CampaignTracker.trackClick('abc123');</code>
                     <div class="label">Database Functions</div>
                 </div>
                 <div class="stat-box">
-                    <div class="number">2</div>
+                    <div class="number">4</div>
                     <div class="label">API Endpoints</div>
                 </div>
                 <div class="stat-box">
@@ -881,13 +944,16 @@ window.CampaignTracker.trackClick('abc123');</code>
             <h3>2. Scalable Architecture</h3>
             <p>The use of PostgreSQL functions for metric calculations means the system can handle millions of events efficiently. Row Level Security ensures data isolation at the database level, not just the application level.</p>
 
-            <h3>3. Developer Experience</h3>
+            <h3>3. Advanced Tracking Features</h3>
+            <p>Target link restrictions ensure accurate attribution by only tracking on specified URLs. Script verification tools help creators properly install the tracker. Campaign link sharing simplifies collaboration with content creators.</p>
+
+            <h3>4. Developer Experience</h3>
             <p>TypeScript throughout ensures type safety. TanStack Query provides excellent caching and state management. The component library (shadcn/ui) ensures consistent, accessible UI components.</p>
 
-            <h3>4. Production-Ready Features</h3>
+            <h3>5. Production-Ready Features</h3>
             <p>Error handling, loading states, form validation, responsive design, and comprehensive documentation are all built in. The application follows best practices for security, performance, and user experience.</p>
 
-            <h3>5. Extensibility</h3>
+            <h3>6. Extensibility</h3>
             <p>The architecture supports easy extension: new event types, additional metrics, email notifications, export functionality, and more can be added without major refactoring.</p>
         </div>
     </section>
